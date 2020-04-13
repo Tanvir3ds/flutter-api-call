@@ -52,6 +52,8 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       title: appTitle,
+      
+      debugShowCheckedModeBanner: false,
       home: MyHomePage(title: appTitle),
     );
   }
@@ -66,8 +68,99 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.red,
         title: Text(title),
+        actions: <Widget>[
+           new IconButton(icon: Icon(Icons.search,color: Colors.white), onPressed: (){}),
+          new IconButton(icon: Icon(Icons.shopping_cart,color: Colors.white), onPressed: (){})
+        ],
       ),
+
+    
+      drawer: new Drawer(
+        child: new ListView(
+          children: <Widget>[
+//             header part
+            new UserAccountsDrawerHeader(
+              accountName: Text('Tanvir'),
+              accountEmail: Text('Tanvir@gmail.com'),
+              currentAccountPicture: GestureDetector(
+                child: new CircleAvatar(
+                  backgroundColor: Colors.grey,
+                  child: Icon(Icons.person, color: Colors.white,),
+                ),
+              ),
+              decoration: new BoxDecoration(
+                color: Colors.red,
+              ),
+            ),
+
+//            body
+
+            InkWell(
+              onTap: (){},
+              child: ListTile(
+                title: Text('Home Page'),
+                
+              ),
+            ),
+
+            InkWell(
+              onTap: (){
+                
+              },
+              child: ListTile(
+                title: Text('My account'),
+                
+              ),
+            ),
+            InkWell(
+              onTap: (){},
+              child: ListTile(
+                title: Text('My order'),
+                
+              ),
+            ),
+            InkWell(
+              onTap: (){},
+              child: ListTile(
+                title: Text('Shooping cart'),
+                
+              ),
+            ),
+            InkWell(
+              onTap: (){},
+              child: ListTile(
+                title: Text('Favourites'),
+               
+              ),
+            ),
+
+
+
+            Divider(),
+
+            InkWell(
+              onTap: (){},
+              child: ListTile(
+                title: Text('Settings'),
+              
+              ),
+            ),
+            InkWell(
+              onTap: (){},
+              child: ListTile(
+                title: Text('About'),
+               
+              ),
+            ),
+
+
+
+          ],
+        ),
+      ),
+
       body: FutureBuilder<List<Photo>>(
         future: fetchPhotos(http.Client()),
         builder: (context, snapshot) {
