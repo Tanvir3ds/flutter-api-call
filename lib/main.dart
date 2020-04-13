@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:myapp/product_details.dart';
 import 'package:http/http.dart' as http;
 
 //Make a network request
@@ -231,6 +232,19 @@ class Single_prod extends StatelessWidget {
           child: Material(
             child: InkWell(
 
+
+              //details trial
+              onTap: ()=> Navigator.of(context).push(
+                  new MaterialPageRoute(builder: (context)=> new ProductDetails(
+                    //value passint in products to product_details class
+                    product_details_name: prod_name,
+                    
+                    product_details_picture: prod_picture,
+
+                  ))),
+              //end product details
+
+              
               child: GridTile(
                   footer: Container(
                       color: Colors.white70,
