@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 //Make a network request
 Future<List<Photo>> fetchPhotos(http.Client client) async {
   final response =
-      await client.get('https://jsonplaceholder.typicode.com/photos');
+      await client.get('http://myapppython.pythonanywhere.com/api/books/');
 
   // Use the compute function to run parsePhotos in a separate isolate.
   return compute(parsePhotos, response.body);
@@ -25,21 +25,18 @@ List<Photo> parsePhotos(String responseBody) {
 }
 
 class Photo {
-  final int albumId;
-  final int id;
+  final int price;
   final String title;
-  final String url;
-  final String thumbnailUrl;
+  final String img;
 
-  Photo({this.albumId, this.id, this.title, this.url, this.thumbnailUrl});
+  Photo({this.price, this.title, this.img});
 
   factory Photo.fromJson(Map<String, dynamic> json) {
     return Photo(
-      albumId: json['albumId'] as int,
-      id: json['id'] as int,
+      
       title: json['title'] as String,
-      url: json['url'] as String,
-      thumbnailUrl: json['thumbnailUrl'] as String,
+      img: json['img'] as String,
+      price: json['price'] as int,
     );
   }
 }
@@ -49,7 +46,7 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final appTitle = 'Isolate Demo';
+    final appTitle = 'Books';
 
     return MaterialApp(
       title: appTitle,
@@ -192,7 +189,8 @@ class PhotosList extends StatelessWidget {
         //return Image.network(photos[index].thumbnailUrl);
         return Single_prod(
           prod_name: photos[index].title,
-          prod_picture: photos[index].thumbnailUrl,
+          prod_picture: photos[index].img,
+          prod_price: photos[index].price,
         );
 
         //return Image.network(photos[index].thumbnailUrl);
@@ -215,11 +213,13 @@ class PhotosList extends StatelessWidget {
 class Single_prod extends StatelessWidget {
   final prod_name;
   final prod_picture;
+  final prod_price;
 
   
   Single_prod({
     this.prod_name,
     this.prod_picture,
+    this.prod_price,
   
   });
 
@@ -240,11 +240,13 @@ class Single_prod extends StatelessWidget {
                     product_details_name: prod_name,
                     
                     product_details_picture: prod_picture,
+                    product_details_price: prod_price,
+
 
                   ))),
               //end product details
 
-              
+
               child: GridTile(
                   footer: Container(
                       color: Colors.white70,
@@ -252,7 +254,7 @@ class Single_prod extends StatelessWidget {
                         Expanded(
                           child: new Text(prod_name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),),
                         ),
-                        //new Text("\$${prod_price}",style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),)
+                        new Text("\$${prod_price}",style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),)
                       ],)
                   ),
                   child: Image.network(
