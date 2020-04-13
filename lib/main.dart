@@ -96,11 +96,66 @@ class PhotosList extends StatelessWidget {
       itemCount: photos.length,
       itemBuilder: (context, index) {
         //return Image.network(photos[index].thumbnailUrl);
-        return ListTile(
-          title: Text(photos[index].title),
-          
+        return Single_prod(
+          prod_name: photos[index].title,
+          prod_picture: photos[index].thumbnailUrl,
         );
+
+        //return Image.network(photos[index].thumbnailUrl);
+        //return ListTile(
+        //title: Text(photos[index].title),
+
+        //);
+
+        //trial...........................................................................................
+
+
+        //trial///........................................................................................
       },
     );
   }
 }
+
+
+
+class Single_prod extends StatelessWidget {
+  final prod_name;
+  final prod_picture;
+
+  
+  Single_prod({
+    this.prod_name,
+    this.prod_picture,
+  
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Card(
+      child: Hero(
+          tag: prod_name,
+          child: Material(
+            child: InkWell(
+
+              child: GridTile(
+                  footer: Container(
+                      color: Colors.white70,
+                      child: new Row(children: <Widget>[
+                        Expanded(
+                          child: new Text(prod_name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),),
+                        ),
+                        //new Text("\$${prod_price}",style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),)
+                      ],)
+                  ),
+                  child: Image.network(
+                     //return Image.network(photos[index].thumbnailUrl);
+                    prod_picture,
+                    fit: BoxFit.cover,
+                  )),
+            ),
+          )),
+    );
+  }
+}
+
